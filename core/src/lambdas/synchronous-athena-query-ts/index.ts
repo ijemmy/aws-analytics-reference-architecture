@@ -38,6 +38,7 @@ export async function onCreate(event: any) {
 
   try {
     const responseStart = await athena.startQueryExecution(command).promise();
+
     return {
       PhysicalResourceId: responseStart.QueryExecutionId,
       Data: responseStart,
@@ -59,25 +60,27 @@ export async function onDelete(event: any) {
 
 export async function isComplete(event: any) {
   console.log(event);
-  if (event.RequestType == 'Delete') return { isComplete: true };
+  if (event.RequestType == 'Delete') return { IsComplete: true };
   const command = {
     QueryExecutionId: event.PhysicalResourceId,
   };
-  console.log(command);
+  console.log(`Getting command ${command}`);
   try {
     const responseGet = await athena.getQueryExecution(command).promise();
-    if (!responseGet.QueryExecution) return { isComplete: false };
+    if (!responseGet.QueryExecution) return { IsComplete: false };
     console.log(responseGet.QueryExecution);
-    switch (responseGet.QueryExecution.Status) {
+    let queryStatus = 'UNKNOWN';
+    if (responseGet.QueryExecution.Status && responseGet.QueryExecution.Status.State) queryStatus =responseGet.QueryExecution.Status.State;
+    switch (queryStatus) {
       case 'QUEUED' || 'RUNNING':
-        return { isComplete: false };
+        return { IsComplete: false };
       case 'SUCCEEDED':
-        return { isComplete: true, Data: responseGet.QueryExecution };
+        return { IsComplete: true, Data: responseGet.QueryExecution };
       default:
         throw new Error(`Athena query error: ${responseGet.QueryExecution.Status}`);
     }
   } catch (error) {
-    console.log(error);
-    return false;
+    console.log(`isComplete Query Execution Error ${error}`);
+    return { IsComplete: false };
   }
 }
