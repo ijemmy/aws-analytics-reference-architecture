@@ -163,11 +163,11 @@ function addPythonLambdaFunctionBundleTask(taskName, cwd, dirName) {
   console.log('Install dependencies and package into a zip file');
 
   // Clean up existing build files and output zip file
-  bundleTask.exec(`pwd`);
-  bundleTask.exec(`ls -la`);
+  bundleTask.exec('pwd');
+  bundleTask.exec('ls -la');
   bundleTask.exec(`rm -rf ${dirName}.zip`);
   bundleTask.exec(`rm -rf ${tmpBuildDir}`);
-  bundleTask.exec(`mkdir -p build`);
+  bundleTask.exec('mkdir -p build');
   bundleTask.exec(`cp -r ${dirName} build/`);
   bundleTask.exec(`ls -la build/${dirName} `);
 
