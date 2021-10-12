@@ -277,12 +277,6 @@
       "description": "Install dependency and package Python file into for Lambda function:data-generator-setup",
       "steps": [
         {
-          "exec": "pwd"
-        },
-        {
-          "exec": "ls -la"
-        },
-        {
           "exec": "rm -rf data-generator-setup.zip"
         },
         {
@@ -295,10 +289,10 @@
           "exec": "cp -r data-generator-setup build/"
         },
         {
-          "exec": "ls -la build/data-generator-setup "
+          "exec": "echo $PWD"
         },
         {
-          "exec": "docker run -v $PWD/build/data-generator-setup:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la && pwd; exit\""
+          "exec": "docker run -v $PWD/build/data-generator-setup:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"pip install -r requirements.txt -t ./; exit\""
         },
         {
           "exec": "cd build/data-generator-setup && zip -q -r ../../data-generator-setup.zip ."
@@ -310,12 +304,6 @@
       "name": "bundle:synchronous-athena-query",
       "description": "Install dependency and package Python file into for Lambda function:synchronous-athena-query",
       "steps": [
-        {
-          "exec": "pwd"
-        },
-        {
-          "exec": "ls -la"
-        },
         {
           "exec": "rm -rf synchronous-athena-query.zip"
         },
@@ -329,10 +317,10 @@
           "exec": "cp -r synchronous-athena-query build/"
         },
         {
-          "exec": "ls -la build/synchronous-athena-query "
+          "exec": "echo $PWD"
         },
         {
-          "exec": "docker run -v $PWD/build/synchronous-athena-query:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la && pwd; exit\""
+          "exec": "docker run -v $PWD/build/synchronous-athena-query:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"pip install -r requirements.txt -t ./; exit\""
         },
         {
           "exec": "cd build/synchronous-athena-query && zip -q -r ../../synchronous-athena-query.zip ."
@@ -344,12 +332,6 @@
       "name": "bundle:synchronous-crawler",
       "description": "Install dependency and package Python file into for Lambda function:synchronous-crawler",
       "steps": [
-        {
-          "exec": "pwd"
-        },
-        {
-          "exec": "ls -la"
-        },
         {
           "exec": "rm -rf synchronous-crawler.zip"
         },
@@ -363,10 +345,10 @@
           "exec": "cp -r synchronous-crawler build/"
         },
         {
-          "exec": "ls -la build/synchronous-crawler "
+          "exec": "echo $PWD"
         },
         {
-          "exec": "docker run -v $PWD/build/synchronous-crawler:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la && pwd; exit\""
+          "exec": "docker run -v $PWD/build/synchronous-crawler:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"pip install -r requirements.txt -t ./; exit\""
         },
         {
           "exec": "cd build/synchronous-crawler && zip -q -r ../../synchronous-crawler.zip ."

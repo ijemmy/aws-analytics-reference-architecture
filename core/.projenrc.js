@@ -163,21 +163,19 @@ function addPythonLambdaFunctionBundleTask(taskName, cwd, dirName) {
   console.log('Install dependencies and package into a zip file');
 
   // Clean up existing build files and output zip file
-  bundleTask.exec(`pwd`);
-  bundleTask.exec(`ls -la`);
   bundleTask.exec(`rm -rf ${dirName}.zip`);
   bundleTask.exec(`rm -rf ${tmpBuildDir}`);
   bundleTask.exec(`mkdir -p build`);
   bundleTask.exec(`cp -r ${dirName} build/`);
-  bundleTask.exec(`ls -la build/${dirName} `);
+  bundleTask.exec(`echo $PWD`);
 
   // Pip install and compiles dependencies via Docker SAM image
   bundleTask.exec([
     'docker run',
     `-v $PWD/build/${dirName}:/var/task`, // Mapping from host full path to Docker container
     '"public.ecr.aws/sam/build-python3.8"', //Image name
-    // '/bin/sh -c "pip install -r requirements.txt -t ./; exit"', //Commands to run in the image
-    '/bin/sh -c "ls -la && pwd; exit"', //Commands to run in the image
+    '/bin/sh -c "pip install -r requirements.txt -t ./; exit"', //Commands to run in the image
+    // '/bin/sh -c "ls -la && pwd; exit"', //Commands to run in the image
   ].join(' '));
 
   // Zip file to next to the lambda directory
