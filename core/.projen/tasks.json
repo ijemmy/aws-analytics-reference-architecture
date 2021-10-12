@@ -277,6 +277,12 @@
       "description": "Install dependency and package Python file into for Lambda function:data-generator-setup",
       "steps": [
         {
+          "exec": "pwd"
+        },
+        {
+          "exec": "ls -la"
+        },
+        {
           "exec": "rm -rf data-generator-setup.zip"
         },
         {
@@ -302,6 +308,12 @@
       "description": "Install dependency and package Python file into for Lambda function:synchronous-athena-query",
       "steps": [
         {
+          "exec": "pwd"
+        },
+        {
+          "exec": "ls -la"
+        },
+        {
           "exec": "rm -rf synchronous-athena-query.zip"
         },
         {
@@ -326,6 +338,12 @@
       "name": "bundle:synchronous-crawler",
       "description": "Install dependency and package Python file into for Lambda function:synchronous-crawler",
       "steps": [
+        {
+          "exec": "pwd"
+        },
+        {
+          "exec": "ls -la"
+        },
         {
           "exec": "rm -rf synchronous-crawler.zip"
         },
