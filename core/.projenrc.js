@@ -168,6 +168,7 @@ function addPythonLambdaFunctionBundleTask(taskName, cwd, dirName) {
   bundleTask.exec('mkdir -p build');
   bundleTask.exec(`cp -r ${dirName} build/`);
   bundleTask.exec('echo $PWD');
+  bundleTask.exec(`ls -la $PWD/build/${dirName}`);
 
   // Pip install and compiles dependencies via Docker SAM image
   bundleTask.exec([

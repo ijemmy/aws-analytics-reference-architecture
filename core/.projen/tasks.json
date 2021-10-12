@@ -292,6 +292,9 @@
           "exec": "echo $PWD"
         },
         {
+          "exec": "ls -la $PWD/build/data-generator-setup"
+        },
+        {
           "exec": "docker run -v $PWD/build/data-generator-setup:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"pip install -r requirements.txt -t ./; exit\""
         },
         {
@@ -320,6 +323,9 @@
           "exec": "echo $PWD"
         },
         {
+          "exec": "ls -la $PWD/build/synchronous-athena-query"
+        },
+        {
           "exec": "docker run -v $PWD/build/synchronous-athena-query:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"pip install -r requirements.txt -t ./; exit\""
         },
         {
@@ -346,6 +352,9 @@
         },
         {
           "exec": "echo $PWD"
+        },
+        {
+          "exec": "ls -la $PWD/build/synchronous-crawler"
         },
         {
           "exec": "docker run -v $PWD/build/synchronous-crawler:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"pip install -r requirements.txt -t ./; exit\""
