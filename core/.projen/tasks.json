@@ -286,10 +286,10 @@
           "exec": "cp -r data-generator-setup build/"
         },
         {
-          "exec": "ls -la data-generator-setup build/"
+          "exec": "ls -la build/data-generator-setup "
         },
         {
-          "exec": "ls -la && pwd"
+          "exec": "docker run -v $PWD/build/data-generator-setup:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la && pwd; exit\""
         },
         {
           "exec": "cd build/data-generator-setup && zip -q -r ../../data-generator-setup.zip ."
@@ -311,10 +311,10 @@
           "exec": "cp -r synchronous-athena-query build/"
         },
         {
-          "exec": "ls -la synchronous-athena-query build/"
+          "exec": "ls -la build/synchronous-athena-query "
         },
         {
-          "exec": "ls -la && pwd"
+          "exec": "docker run -v $PWD/build/synchronous-athena-query:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la && pwd; exit\""
         },
         {
           "exec": "cd build/synchronous-athena-query && zip -q -r ../../synchronous-athena-query.zip ."
@@ -336,10 +336,10 @@
           "exec": "cp -r synchronous-crawler build/"
         },
         {
-          "exec": "ls -la synchronous-crawler build/"
+          "exec": "ls -la build/synchronous-crawler "
         },
         {
-          "exec": "ls -la && pwd"
+          "exec": "docker run -v $PWD/build/synchronous-crawler:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la && pwd; exit\""
         },
         {
           "exec": "cd build/synchronous-crawler && zip -q -r ../../synchronous-crawler.zip ."
