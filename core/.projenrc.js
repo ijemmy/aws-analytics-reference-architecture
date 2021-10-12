@@ -167,6 +167,7 @@ function addPythonLambdaFunctionBundleTask(taskName, cwd, dirName) {
   bundleTask.exec(`ls -la`);
   bundleTask.exec(`rm -rf ${dirName}.zip`);
   bundleTask.exec(`rm -rf ${tmpBuildDir}`);
+  bundleTask.exec(`mkdir -p build`);
   bundleTask.exec(`cp -r ${dirName} build/`);
   bundleTask.exec(`ls -la build/${dirName} `);
 

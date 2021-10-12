@@ -289,6 +289,9 @@
           "exec": "rm -rf build/data-generator-setup"
         },
         {
+          "exec": "mkdir -p build"
+        },
+        {
           "exec": "cp -r data-generator-setup build/"
         },
         {
@@ -320,6 +323,9 @@
           "exec": "rm -rf build/synchronous-athena-query"
         },
         {
+          "exec": "mkdir -p build"
+        },
+        {
           "exec": "cp -r synchronous-athena-query build/"
         },
         {
@@ -349,6 +355,9 @@
         },
         {
           "exec": "rm -rf build/synchronous-crawler"
+        },
+        {
+          "exec": "mkdir -p build"
         },
         {
           "exec": "cp -r synchronous-crawler build/"
