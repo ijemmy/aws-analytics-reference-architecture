@@ -165,9 +165,9 @@ function addPythonLambdaFunctionBundleTask(taskName, cwd, dirName) {
   // Clean up existing build files and output zip file
   bundleTask.exec(`rm -rf ${dirName}.zip`);
   bundleTask.exec(`rm -rf ${tmpBuildDir}`);
-  bundleTask.exec(`mkdir -p build`);
+  bundleTask.exec('mkdir -p build');
   bundleTask.exec(`cp -r ${dirName} build/`);
-  bundleTask.exec(`echo $PWD`);
+  bundleTask.exec('echo $PWD');
 
   // Pip install and compiles dependencies via Docker SAM image
   bundleTask.exec([
