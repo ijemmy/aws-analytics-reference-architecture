@@ -6,7 +6,7 @@ import { Runtime } from '@aws-cdk/aws-lambda';
 import { RetentionDays } from '@aws-cdk/aws-logs';
 import { Construct, Aws, CustomResource, Duration, Stack } from '@aws-cdk/core';
 import { Provider } from '@aws-cdk/custom-resources';
-import { PreBundledFunction } from './pre-bundled-function';
+import { PreBundledFunction } from '../pre-bundled-function';
 
 /**
  * The properties for SynchronousCrawler Construct.
