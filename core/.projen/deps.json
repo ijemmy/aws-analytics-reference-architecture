@@ -43,6 +43,10 @@
       "type": "build"
     },
     {
+      "name": "glob",
+      "type": "build"
+    },
+    {
       "name": "jest",
       "type": "build"
     },
@@ -69,11 +73,6 @@
     },
     {
       "name": "json-schema",
-      "type": "build"
-    },
-    {
-      "name": "npm-check-updates",
-      "version": "^11",
       "type": "build"
     },
     {

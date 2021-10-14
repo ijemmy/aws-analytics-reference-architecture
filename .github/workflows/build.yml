@@ -13,14 +13,30 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-      - name: Install dependencies
-        run: cd core && yarn install --check-files --frozen-lockfile
+      # - name: Setup Node 12
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '12'
+      - name: test volume mapping
+        run: |
+          mkdir -p core/build/docker-vol
+          touch core/build/docker-vol/requirements.txt
+          echo $PWD
+          ls $PWD/core/build/docker-vol
+      - name: Restart jsii-superchain
+        uses: docker://docker
+        with:
+          args: docker restart jsii-superchain
+      - name: Run Docker command
+        run: docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "pwd && ls -la; exit"
+      # - name: Install dependencies
+      #   run: cd core && yarn install --check-files --frozen-lockfile
       - name: Set git identity
         run: |-
           git config user.name "Automation"
           git config user.email "github-actions@github.com"
-      - name: Build
-        run: cd core && npx projen build
+      # - name: Build
+      #   run: cd core && npx projen build
       - name: Check for changes
         id: git_diff
         run: git diff --exit-code || echo "::set-output name=has_changes::true"
@@ -37,3 +53,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     container:
       image: jsii/superchain
+      options: -v /__w/aws-analytics-reference-architecture/aws-analytics-reference-architecture/core/build/docker-vol:/var/task --name jsii-superchain
+      # volumes: 
+      #   - /__w/aws-analytics-reference-architecture/aws-analytics-reference-architecture/core/build/docker-vol:/var/task
+      # When we spin up a container in Github action, 
+      # the volume binding via "docker run -v" won't work. 
+      # The spun up container will be a sibling container and 
+      # uses the same binding here.
+      # See https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idcontainer for more details.
+        
+

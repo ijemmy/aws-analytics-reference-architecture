@@ -41,6 +41,12 @@
         },
         {
           "spawn": "docgen"
+        },
+        {
+          "exec": "npx projen copy-resources"
+        },
+        {
+          "exec": "npx projen install-python-dep"
         }
       ]
     },
@@ -49,7 +55,7 @@
       "description": "compiles the test code",
       "steps": [
         {
-          "exec": "tsc --noEmit --project tsconfig.jest.json"
+          "exec": "tsc --noEmit --project tsconfig.dev.json"
         }
       ]
     },
@@ -152,27 +158,6 @@
         }
       ]
     },
-    "upgrade-projen": {
-      "name": "upgrade-projen",
-      "description": "upgrade projen",
-      "env": {
-        "CI": "0"
-      },
-      "steps": [
-        {
-          "exec": "npm-check-updates --upgrade --target=minor --filter='projen'"
-        },
-        {
-          "exec": "yarn install --check-files"
-        },
-        {
-          "exec": "yarn upgrade projen"
-        },
-        {
-          "exec": "npx projen"
-        }
-      ]
-    },
     "default": {
       "name": "default",
       "steps": [
@@ -271,6 +256,90 @@
       "steps": [
         {
           "exec": "cdk destroy --app=./lib/integ.default.js"
+        }
+      ]
+    },
+    "copy-resources": {
+      "name": "copy-resources",
+      "description": "Copy all resources directories from src to lib",
+      "steps": [
+        {
+          "exec": "cp -r src/data-generator/resources lib/data-generator"
+        },
+        {
+          "exec": "cp -r src/synchronous-athena-query/resources lib/synchronous-athena-query"
+        },
+        {
+          "exec": "cp -r src/synchronous-crawler/resources lib/synchronous-crawler"
+        }
+      ]
+    },
+    "install-python-dep": {
+      "name": "install-python-dep",
+      "description": "pip install all folders in lib that has requirements.txt",
+      "steps": [
+        {
+          "spawn": "bundle:data-generator-setup"
+        },
+        {
+          "spawn": "bundle:synchronous-athena-query-lambdas"
+        },
+        {
+          "spawn": "bundle:synchronous-crawler-lambdas"
+        }
+      ]
+    },
+    "bundle:data-generator-setup": {
+      "name": "bundle:data-generator-setup",
+      "description": "Install dependency and package Python file into for Lambda function:src/data-generator/resources/lambdas/setup",
+      "steps": [
+        {
+          "exec": "rm -rf build/docker-vol"
+        },
+        {
+          "exec": "mkdir -p build/docker-vol"
+        },
+        {
+          "exec": "cp -r src/data-generator/resources/lambdas/setup/. build/docker-vol"
+        },
+        {
+          "exec": "docker run -v $PWD/build/docker-vol:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la; exit\""
+        }
+      ]
+    },
+    "bundle:synchronous-athena-query-lambdas": {
+      "name": "bundle:synchronous-athena-query-lambdas",
+      "description": "Install dependency and package Python file into for Lambda function:src/synchronous-athena-query/resources/lambdas",
+      "steps": [
+        {
+          "exec": "rm -rf build/docker-vol"
+        },
+        {
+          "exec": "mkdir -p build/docker-vol"
+        },
+        {
+          "exec": "cp -r src/synchronous-athena-query/resources/lambdas/. build/docker-vol"
+        },
+        {
+          "exec": "docker run -v $PWD/build/docker-vol:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la; exit\""
+        }
+      ]
+    },
+    "bundle:synchronous-crawler-lambdas": {
+      "name": "bundle:synchronous-crawler-lambdas",
+      "description": "Install dependency and package Python file into for Lambda function:src/synchronous-crawler/resources/lambdas",
+      "steps": [
+        {
+          "exec": "rm -rf build/docker-vol"
+        },
+        {
+          "exec": "mkdir -p build/docker-vol"
+        },
+        {
+          "exec": "cp -r src/synchronous-crawler/resources/lambdas/. build/docker-vol"
+        },
+        {
+          "exec": "docker run -v $PWD/build/docker-vol:/var/task \"public.ecr.aws/sam/build-python3.8\" /bin/sh -c \"ls -la; exit\""
         }
       ]
     },
