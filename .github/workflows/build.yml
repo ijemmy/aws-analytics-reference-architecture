@@ -23,7 +23,12 @@ jobs:
           touch core/build/docker-vol/requirements.txt
           echo $PWD
           ls $PWD/core/build/docker-vol
-          docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "pwd && ls -la; exit"
+      - name: Restart jsii-superchain
+        uses: docker://docker
+        with:
+          args: docker restart jsii-superchain
+      - name: Run Docker command
+        run: docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "pwd && ls -la; exit"
       # - name: Install dependencies
       #   run: cd core && yarn install --check-files --frozen-lockfile
       - name: Set git identity
@@ -48,9 +53,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     container:
       image: jsii/superchain
-      # options: -v /__w/aws-analytics-reference-architecture/aws-analytics-reference-architecture/core/build/docker-vol:/var/task --name jsii-superchain
-      volumes: 
-        - /__w/aws-analytics-reference-architecture/aws-analytics-reference-architecture/core/build/docker-vol:/var/task
+      options: -v /__w/aws-analytics-reference-architecture/aws-analytics-reference-architecture/core/build/docker-vol:/var/task --name jsii-superchain
+      # volumes: 
+      #   - /__w/aws-analytics-reference-architecture/aws-analytics-reference-architecture/core/build/docker-vol:/var/task
       # When we spin up a container in Github action, 
       # the volume binding via "docker run -v" won't work. 
       # The spun up container will be a sibling container and 
