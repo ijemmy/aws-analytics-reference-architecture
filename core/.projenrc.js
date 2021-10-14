@@ -111,8 +111,8 @@ for (const dirPath of findAllPythonLambdaDir('src')) {
 
   // pipInstallTask.exec(pipCmd);
 
-  // dirPath can be in the form of 
-  // 1. /src/<construct-name>/resources/lambdas 
+  // dirPath can be in the form of
+  // 1. /src/<construct-name>/resources/lambdas
   // 2. /src/<construct-name>/resources/lambdas/<lambda-name>
   const dirName = basename(dirPath);
   const constructName = dirPath.split(sep)[1];
@@ -126,8 +126,8 @@ for (const dirPath of findAllPythonLambdaDir('src')) {
   pipInstallTask.spawn(lambdaBundleTask);
 }
 
-project.gitignore.addPatterns(`build`);
-project.npmignore.addPatterns(`build`);
+project.gitignore.addPatterns('build');
+project.npmignore.addPatterns('build');
 /**
  * Run `copy-resources` and `pip-install` as part of compile
  */
@@ -165,20 +165,20 @@ function findAllPythonLambdaDir(rootDir) {
  * @param cwd Current workign directory
  * @param dirPath Directory name of the Python Lambda function
  */
- function addPythonLambdaFunctionBundleTask(taskName, uniqueName, dirPath) {
-   // cwd is the /core folder
+function addPythonLambdaFunctionBundleTask(taskName, uniqueName, dirPath) {
+  // cwd is the /core folder
   console.log('process.cwd()', process.cwd());
   console.log('taskName', taskName);
   console.log('uniqueName', uniqueName);
   console.log('dirPath', dirPath);
-  
+
 
   const bundleTask = project.addTask(taskName, {
     description: `Install dependency and package Python file into for Lambda function:${dirPath}`,
   });
-  
+
   const volumeBindFolder = join('build', 'docker-vol');
-  bundleTask.exec(`rm -rf ${volumeBindFolder}`)
+  bundleTask.exec(`rm -rf ${volumeBindFolder}`);
   bundleTask.exec(`mkdir -p ${volumeBindFolder}`);
 
 
