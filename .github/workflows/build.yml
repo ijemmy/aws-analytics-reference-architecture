@@ -21,8 +21,9 @@ jobs:
         run: |
           mkdir -p core/build/docker-vol
           touch core/build/docker-vol/requirements.txt
-          ls ${{ github.workspace }}/core/build/docker-vol
-          echo $PWD && docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "pwd && ls -la; exit"
+          echo $PWD
+          ls $PWD/core/build/docker-vol
+          docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "pwd && ls -la; exit"
       # - name: Install dependencies
       #   run: cd core && yarn install --check-files --frozen-lockfile
       - name: Set git identity
