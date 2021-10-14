@@ -17,14 +17,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '12'
-      - name: Install dependencies
-        run: cd core && yarn install --check-files --frozen-lockfile
+      - name: test volume mapping
+        run: touch core/build/docker-vol/requirements.txt && echo $PWD && docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "ls -la; exit"
+      # - name: Install dependencies
+      #   run: cd core && yarn install --check-files --frozen-lockfile
       - name: Set git identity
         run: |-
           git config user.name "Automation"
           git config user.email "github-actions@github.com"
-      - name: Build
-        run: cd core && npx projen build
+      # - name: Build
+      #   run: cd core && npx projen build
       - name: Check for changes
         id: git_diff
         run: git diff --exit-code || echo "::set-output name=has_changes::true"
