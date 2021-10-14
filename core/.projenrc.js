@@ -100,7 +100,7 @@ for (const from of glob.sync('src/**/resources')) {
  */
 
 
-const pipInstallTask = project.addTask('bundle', {
+const pipInstallTask = project.addTask('install-python-dep', {
   description: 'pip install all folders in lib that has requirements.txt',
 });
 
@@ -132,7 +132,7 @@ project.npmignore.addPatterns(`build`);
  * Run `copy-resources` and `pip-install` as part of compile
  */
 project.compileTask.exec('npx projen copy-resources');
-project.compileTask.exec('npx projen pip-install');
+project.compileTask.exec('npx projen install-python-dep');
 
 /**
  * Find all directory that has a Python package.

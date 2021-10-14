@@ -46,7 +46,7 @@
           "exec": "npx projen copy-resources"
         },
         {
-          "exec": "npx projen pip-install"
+          "exec": "npx projen install-python-dep"
         }
       ]
     },
@@ -295,8 +295,8 @@
         }
       ]
     },
-    "bundle": {
-      "name": "bundle",
+    "install-python-dep": {
+      "name": "install-python-dep",
       "description": "pip install all folders in lib that has requirements.txt",
       "steps": [
         {
