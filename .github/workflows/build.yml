@@ -18,7 +18,10 @@ jobs:
         with:
           node-version: '12'
       - name: test volume mapping
-        run: touch core/build/docker-vol/requirements.txt && echo $PWD && docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "ls -la; exit"
+        run: |
+          mkdir -p core/build/docker-vol
+          touch core/build/docker-vol/requirements.txt
+          echo $PWD && docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "ls -la; exit"
       # - name: Install dependencies
       #   run: cd core && yarn install --check-files --frozen-lockfile
       - name: Set git identity
@@ -43,10 +46,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     container:
       image: jsii/superchain
+      volumes: 
+        - /__w/aws-analytics-reference-architecture/core/build/docker-vol:/var/task
       # When we spin up a container in Github action, 
       # the volume binding via "docker run -v" won't work. 
       # The spun up container will be a sibling container and 
       # uses the same binding here.
       # See https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idcontainer for more details.
-      volumes: 
-        - /__w/aws-analytics-reference-architecture/core/build/docker-vol:/var/task
+        
+
