@@ -13,15 +13,16 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-      - name: Setup Node 12
-        uses: actions/setup-node@v2
-        with:
-          node-version: '12'
+      # - name: Setup Node 12
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '12'
       - name: test volume mapping
         run: |
           mkdir -p core/build/docker-vol
           touch core/build/docker-vol/requirements.txt
-          echo $PWD && docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "ls -la; exit"
+          ls ${{ github.workspace }}/core/build/docker-vol
+          echo $PWD && docker run -v $PWD/build/docker-vol:/var/task "public.ecr.aws/sam/build-python3.8" /bin/sh -c "pwd && ls -la; exit"
       # - name: Install dependencies
       #   run: cd core && yarn install --check-files --frozen-lockfile
       - name: Set git identity
@@ -46,8 +47,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     container:
       image: jsii/superchain
-      volumes: 
-        - /__w/aws-analytics-reference-architecture/core/build/docker-vol:/var/task
+      options: -v ${{ github.workspace }}/core/build/docker-vol:/var/task --name jsii-superchain
+
+      # volumes: 
+      #   - /__w/aws-analytics-reference-architecture/core/build/docker-vol:/var/task
       # When we spin up a container in Github action, 
       # the volume binding via "docker run -v" won't work. 
       # The spun up container will be a sibling container and 
