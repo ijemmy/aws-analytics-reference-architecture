@@ -6,7 +6,7 @@
     "aws-cdk:enableDiffNoFail": "true",
     "EnableBatch": "true",
     "EnableDWH": "true",
-    "EnableDataviz": "true",
+    "EnableDataviz": "false",
     "EnableStreaming": "true",
     "EnableCICD": "true",
     "RepositoryName": "ijemmy/aws-analytics-reference-architecture",
