@@ -10,7 +10,7 @@
     "EnableStreaming": "true",
     "EnableCICD": "true",
     "RepositoryName": "ijemmy/aws-analytics-reference-architecture",
-    "RepositoryBranch": "feature/private-cicd",
+    "RepositoryBranch": "feature/cicd-rivate",
     "ConnectionArn": "arn:aws:codestar-connections:us-east-1:764577495058:connection/6cbc9298-a42f-4607-8897-14da57d4845d",
     "QuickSightUsername": "<QUICKSIGHT_USERNAME>",
     "QuickSightIdentityRegion": "<QUICKSIGHT_IDENTITY_REGION>",
