@@ -12,7 +12,7 @@
     "CICDParameters": {
       "RepositoryName": "ijemmy/aws-analytics-reference-architecture",
       "RepositoryBranch": "feature/cicd-private",
-      "ConnectionArn": "arn:aws:codestar-connections:us-east-1:764577495058:connection/6cbc9298-a42f-4607-8897-14da57d4845d",
+      "ConnectionArn": "arn:aws:codestar-connections:us-east-1:764577495058:connection/6cbc9298-a42f-4607-8897-14da57d4845d"
     },
     "QuickSightUsername": "<QUICKSIGHT_USERNAME>",
     "QuickSightIdentityRegion": "<QUICKSIGHT_IDENTITY_REGION>",
