@@ -6,13 +6,13 @@
     "aws-cdk:enableDiffNoFail": "true",
     "EnableBatch": "true",
     "EnableDWH": "true",
-    "EnableDataviz": "true",
+    "EnableDataviz": "false",
     "EnableStreaming": "true",
-    "EnableCICD": "false",
+    "EnableCICD": "true",
     "CICDParameters": {
-      "RepositoryName": "<REPOSITORY_NAME>",
-      "RepositoryBranch": "<REPOSITORY_BRANCH>",
-      "ConnectionArn": "<CONNECTION_ARN>"
+      "RepositoryName": "ijemmy/aws-analytics-reference-architecture",
+      "RepositoryBranch": "cicd-private2",
+      "ConnectionArn": "arn:aws:codestar-connections:us-east-1:764577495058:connection/6cbc9298-a42f-4607-8897-14da57d4845d"
     },
     "QuickSightUsername": "<QUICKSIGHT_USERNAME>",
     "QuickSightIdentityRegion": "<QUICKSIGHT_IDENTITY_REGION>",
